@@ -3,7 +3,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 
-public class Main {
+
+final public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -34,105 +35,67 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter the array size - ");
-        int arraySize = in.nextInt();
-        int[] arrayOfNumbers = new int[arraySize];
+        CustomArray customArray = new CustomArray(in.nextInt());
 
-        fillArray(arrayOfNumbers);
+        customArray.fillArray(customArray.array);
 
         System.out.println("\nEnter the value of new element in array");
-        int valueOfElement = in.nextInt();
+        customArray.newElementValue = in.nextInt();
 
         System.out.println("\nEnter the index of new element in array");
-        int placeOfElement = in.nextInt();
+        customArray.newElementIndex = in.nextInt();
 
-        int[] newArray;
-        newArray = insertElement(arraySize, arrayOfNumbers, valueOfElement, placeOfElement);
-        System.out.println("Initial Array:\n" + Arrays.toString(newArray));
-
-
-
-
+      customArray.array = CustomArray.insertElement(
+              customArray.length,
+              customArray.array,
+              customArray.newElementValue,
+              customArray.newElementIndex
+      );
+        System.out.println("Initial Array:\n" + Arrays.toString(customArray.array));
     }
 
-    public static int[] fillArray(int[] array) {
-        Scanner in = new Scanner(System.in);
-        for (int i = 0; i < array.length; i++) {
-            array[i] = in.nextInt();
-        }
-        return array;
-    }
-
-    public static int[] insertElement(int sizeOfArray, int[] array, int element, int position) {
-        int[] newArray = new int[sizeOfArray + 1];
-        for (int i = 0; i < sizeOfArray + 1; i++) {
-            if (i < position - 1) {
-                newArray[i] = array[i];
-            }
-            else if (i == position - 1) {
-                newArray[i] = element;
-            }
-            else {
-                newArray[i] = array[i - 1];
-            }
-        }
-        return newArray;
-    }
     public static void doTaskTwo() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("\nEnter the sentence:\n");
-        String sentence = in.nextLine();
+        CustomSentence sentence = new CustomSentence(in.nextLine());
 
         System.out.println("\nEnter the word which you want to reverse:\n");
-        String reversingWord = in.nextLine();
+        sentence.reversingWord = in.nextLine();
 
-        String reversedWord = reverseString(reversingWord);
+        sentence.reversedWord = CustomSentence.reverseString(sentence);
 
-        System.out.println(sentence.replace(reversingWord, reversedWord)+"\n");
-
+        System.out.println(sentence.text.replace(sentence.reversingWord, sentence.reversedWord)+"\n");
     }
 
-    public static String reverseString(String string) {
-        return new StringBuilder(string).reverse().toString();
-    }
 
     public static void doTaskThree() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("\nEnter the sentence:\n");
-        String sentence = in.nextLine();
+        CustomSentence sentence = new CustomSentence(in.nextLine());
 
         System.out.println("\nEnter the word which you want to change:\n");
-        String changingWord = in.nextLine();
+        sentence.changingWord = in.nextLine();
 
         System.out.println("\nEnter the letters which will added:\n");
-        String addingLetters = in.nextLine();
+        sentence.addingLetters = in.nextLine();
 
-        StringBuilder newWord = new StringBuilder(changingWord);
-        if (newWord.length() % 2 == 0) {
-            newWord.insert(newWord.length() / 2, addingLetters);
-        } else {
-            newWord.deleteCharAt(newWord.length() / 2);
-            newWord.insert(newWord.length() / 2, addingLetters);
-        }
-
-        System.out.println(sentence.replace(changingWord, newWord));
+        System.out.println(sentence.text.replace(
+                sentence.changingWord,
+                CustomSentence.appendLetters(
+                        sentence.changingWord,
+                        sentence.addingLetters
+                )
+        ));
     }
 
     public static void doTaskFour() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("\nEnter the sentence:\n");
+        CustomSentence sentence = new CustomSentence(in.nextLine());
 
-        String sentence = in.nextLine();
-        char[] charArray = sentence.toCharArray();
-
-        int countOfUpperCaseWords = 0;
-        for(char i:charArray){
-            if(Character.isUpperCase(i)){
-                countOfUpperCaseWords += 1;
-            }
-        }
-        System.out.println("Count of upper case words = " + countOfUpperCaseWords);
+        System.out.println("Count of upper case words = " + sentence.calculateUpperCasedWords());
     }
 }
