@@ -2,61 +2,59 @@ package com.company;
 
 final public class CustomSentence {
 
-    String text;
-    String reversingWord;
-    String reversedWord;
+    private final String text;
+    private String reversingWord;
 
-    String changingWord;
-    String addingLetters;
+    private String changingWord;
+    private String addingLetters;
 
-    private char[] charArray;
-
-    public CustomSentence() {
-        text = "";
-        reversedWord = "";
-        reversingWord = "";
-        changingWord = "";
-        addingLetters = "";
-        charArray = this.text.toCharArray();
-    }
-
-    public CustomSentence(String sentence, String reversingWord, String reversedWord) {
-        this.text = sentence;
-        this.reversedWord = reversedWord;
-        this.reversingWord = reversingWord;
-    }
+    private final char[] charArray;
 
     public CustomSentence(String sentence) {
         this.text = sentence;
-        this.reversedWord = "";
-        this.reversingWord = "";
         charArray = this.text.toCharArray();
     }
 
-    public static StringBuilder appendLetters(String changingWord, String addingLetters) {
-
-        StringBuilder newWord = new StringBuilder(changingWord);
-        if (newWord.length() % 2 == 0) {
-            newWord.insert(newWord.length() / 2, addingLetters);
-        } else {
-            newWord.deleteCharAt(newWord.length() / 2);
-            newWord.insert(newWord.length() / 2, addingLetters);
-        }
-        return newWord;
+    public void getReversingWord(String reversingWord) {
+        this.reversingWord = reversingWord;
+        reverseString(this);
     }
 
-    public int calculateUpperCasedWords() {
+    public void getChangingWord(String changingWord) {
+        this.changingWord = changingWord;
+    }
+
+    public void getAddingLetters(String addingLetters) {
+        this.addingLetters = addingLetters;
+    }
+
+    public static void appendLetters(CustomSentence sentence) {
+
+        StringBuilder newWord = new StringBuilder(sentence.changingWord);
+        if (newWord.length() % 2 == 0) {
+            newWord.insert(newWord.length() / 2, sentence.addingLetters);
+        } else {
+            newWord.deleteCharAt(newWord.length() / 2);
+            newWord.insert(newWord.length() / 2, sentence.addingLetters);
+        }
+
+        System.out.println(sentence.text.replace(sentence.changingWord, newWord));
+    }
+
+    public void calculateUpperCasedWords() {
         int countOfUpperCaseWords = 0;
         for(char i:charArray){
             if(Character.isUpperCase(i)){
                 countOfUpperCaseWords += 1;
             }
         }
-        return countOfUpperCaseWords;
+        System.out.println("Count of upper case words = " + countOfUpperCaseWords);
     }
 
-
-    public static String reverseString(CustomSentence sentence) {
-        return new StringBuilder(sentence.reversingWord).reverse().toString();
+    public static void reverseString(CustomSentence sentence) {
+        System.out.println(sentence.text.replace(
+                sentence.reversingWord,
+                new StringBuilder(sentence.reversingWord).reverse().toString())+"\n"
+        );
     }
 }

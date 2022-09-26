@@ -2,10 +2,7 @@ package com.company;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
-
 final public class Main {
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -29,7 +26,6 @@ final public class Main {
                 break;
             }
         }
-        in.close();
     }
     public static void doTaskOne() {
         Scanner in = new Scanner(System.in);
@@ -37,21 +33,14 @@ final public class Main {
         System.out.println("Enter the array size - ");
         CustomArray customArray = new CustomArray(in.nextInt());
 
-        customArray.fillArray(customArray.array);
+        customArray.fillArray(customArray);
 
         System.out.println("\nEnter the value of new element in array");
-        customArray.newElementValue = in.nextInt();
+        customArray.getValue(in.nextInt());
 
         System.out.println("\nEnter the index of new element in array");
-        customArray.newElementIndex = in.nextInt();
-
-      customArray.array = CustomArray.insertElement(
-              customArray.length,
-              customArray.array,
-              customArray.newElementValue,
-              customArray.newElementIndex
-      );
-        System.out.println("Initial Array:\n" + Arrays.toString(customArray.array));
+        customArray.getIndex(in.nextInt());
+        customArray.insertElement(customArray);
     }
 
     public static void doTaskTwo() {
@@ -61,13 +50,8 @@ final public class Main {
         CustomSentence sentence = new CustomSentence(in.nextLine());
 
         System.out.println("\nEnter the word which you want to reverse:\n");
-        sentence.reversingWord = in.nextLine();
-
-        sentence.reversedWord = CustomSentence.reverseString(sentence);
-
-        System.out.println(sentence.text.replace(sentence.reversingWord, sentence.reversedWord)+"\n");
+        sentence.getReversingWord(in.nextLine());
     }
-
 
     public static void doTaskThree() {
         Scanner in = new Scanner(System.in);
@@ -76,18 +60,12 @@ final public class Main {
         CustomSentence sentence = new CustomSentence(in.nextLine());
 
         System.out.println("\nEnter the word which you want to change:\n");
-        sentence.changingWord = in.nextLine();
+        sentence.getChangingWord(in.nextLine());
 
         System.out.println("\nEnter the letters which will added:\n");
-        sentence.addingLetters = in.nextLine();
+        sentence.getAddingLetters(in.nextLine());
 
-        System.out.println(sentence.text.replace(
-                sentence.changingWord,
-                CustomSentence.appendLetters(
-                        sentence.changingWord,
-                        sentence.addingLetters
-                )
-        ));
+        CustomSentence.appendLetters(sentence);
     }
 
     public static void doTaskFour() {
@@ -95,7 +73,6 @@ final public class Main {
 
         System.out.println("\nEnter the sentence:\n");
         CustomSentence sentence = new CustomSentence(in.nextLine());
-
-        System.out.println("Count of upper case words = " + sentence.calculateUpperCasedWords());
+        sentence.calculateUpperCasedWords();
     }
 }
