@@ -1,10 +1,11 @@
 package com.company;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 final public class CustomArray {
-    private final int [] array;
-    private final int length;
+    private int [] array;
+    private int length;
     private int newElementIndex;
     private int newElementValue;
 
@@ -13,34 +14,76 @@ final public class CustomArray {
         this.array = new int[this.length];
     }
 
-    public void getValue(int value) {
-        this.newElementValue = value;
+    public CustomArray(int[] array) {
+        this.setArray(array);
     }
 
-    public void getIndex(int index) {
+    public CustomArray() {
+        this(10);
+        this.newElementValue = 5;
+        this.newElementIndex = 0;
+        this.setRandom();
+    }
+
+    public CustomArray(CustomArray object) {
+        this.length = object.length;
+        this.array = new int[this.length];
+        this.newElementValue = object.newElementValue;
+        this.newElementIndex = object.newElementIndex;
+        fillArray();
+    }
+
+    public void setRandom() {
+        Random r = new Random();
+        for (int i = 0; i < this.length; i++) {
+            this.array[i] = r.nextInt(11) - 5;
+        }
+    }
+
+    public int[] getArray() {
+        return this.array;
+    }
+
+    public void setValue(int number) {
+        this.newElementValue = number;
+    }
+
+    public void setArray(int[] array) {
+        this.array = Arrays.copyOf(array, array.length);
+        this.length = array.length;
+    }
+
+    public void setIndex(int index) {
         this.newElementIndex = index;
     }
 
-    public void fillArray(CustomArray customArray) {
+    public void fillArray() {
         Scanner in = new Scanner(System.in);
-        for (int i = 0; i < customArray.array.length; i++) {
-            customArray.array[i] = in.nextInt();
+        for (int i = 0; i < this.array.length; i++) {
+            System.out.print("["+(i+1)+"]"+" элемент = ");
+            this.array[i] = in.nextInt();
         }
     }
 
-    public void insertElement(CustomArray customArray) {
-        int[] newArray = new int[customArray.length + 1];
-        for (int i = 0; i < customArray.length + 1; i++) {
-            if (i < customArray.newElementIndex - 1) {
-                newArray[i] = customArray.array[i];
+    public void printArray() {
+            for (int i = 0; i < this.array.length; i++) {
+                System.out.print("["+(i+1)+"]"+" элемент = " + array[i] + "\n");
             }
-            else if (i == customArray.newElementIndex - 1) {
-                newArray[i] = customArray.newElementValue;
+    }
+
+    public void insertElement() {
+        int[] newArray = new int[this.length + 1];
+        for (int i = 0; i < this.length + 1; i++) {
+            if (i < this.newElementIndex - 1) {
+                newArray[i] = this.array[i];
+            }
+            else if (i == this.newElementIndex - 1) {
+                newArray[i] = this.newElementValue;
             }
             else {
-                newArray[i] = customArray.array[i - 1];
+                newArray[i] = this.array[i - 1];
             }
         }
-        System.out.println("Initial Array:\n" + Arrays.toString(newArray));
+        System.out.println("\nИтоговый массив целых чисел:\n" + Arrays.toString(newArray));
     }
 }
