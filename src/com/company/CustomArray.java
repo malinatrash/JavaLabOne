@@ -71,7 +71,7 @@ final public class CustomArray {
             }
     }
 
-    public void insertElement() {
+    public String insertElement() {
         int[] newArray = new int[this.length + 1];
         for (int i = 0; i < this.length + 1; i++) {
             if (i < this.newElementIndex - 1) {
@@ -84,6 +84,7 @@ final public class CustomArray {
                 newArray[i] = this.array[i - 1];
             }
         }
-        System.out.println("\nИтоговый массив целых чисел:\n" + Arrays.toString(newArray));
+        return  Arrays.toString(newArray);
+//        System.out.println("\nИтоговый массив целых чисел:\n" + Arrays.toString(newArray));
     }
 }

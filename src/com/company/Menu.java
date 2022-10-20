@@ -69,11 +69,11 @@ public class Menu {
                         array.printArray();
                         break;
                     case 3:
-                        FileManager.arrayToFile(array.getArray(), "data.bin");
-                        System.out.println("Сначала заполните массив");
+                        StorageManager.shared.arrayToFile(array.getArray(), "data.bin");
+
                         break;
                     case 4:
-                        int[] readedArray = FileManager.arrayFromFile("data.bin");
+                        int[] readedArray = StorageManager.shared.arrayFromFile("data.bin");
                         array = new CustomArray(readedArray);
                         break;
                     case 5:
@@ -82,8 +82,7 @@ public class Menu {
                         array.setValue(in.nextInt());
                         System.out.print("Введите индекс, по которому Вы хотите поместить элемент: ");
                         array.setIndex(in.nextInt());
-                        array.insertElement();
-                        System.out.println("Сначала заполните массив");
+                        System.out.println("\nИтоговый массив целых чисел:\n" + array.insertElement());
                         break;
                     case 0:
                         break;
@@ -145,10 +144,10 @@ public class Menu {
                         System.out.println("Полученная строка: " + sentence.getText());
                         break;
                     case 3:
-                        FileManager.sentenceToTextFile(sentence.getText(), "data.txt");
+                        StorageManager.shared.sentenceToTextFile(sentence.getText(), "data.txt");
                         break;
                     case 4:
-                        String readedSentence = FileManager.sentenceFromTextFile("data.txt");
+                        String readedSentence = StorageManager.shared.sentenceFromTextFile("data.txt");
                         sentence = new CustomSentence(readedSentence);
                         break;
                     case 5:

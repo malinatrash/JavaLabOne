@@ -11,18 +11,12 @@ final public class CustomSentence {
     private String changingWord;
     private String addingLetters;
 
-    private final char[] charArray;
-
-
     public CustomSentence() {
         this.text = setRandomSentence(5) + " " + setRandomSentence(2) + " " + setRandomSentence(7);
-        charArray = this.text.toCharArray();
     }
-
 
     public CustomSentence(String sentence) {
         this.text = sentence;
-        charArray = this.text.toCharArray();
     }
 
     public String getText() {
@@ -71,6 +65,7 @@ final public class CustomSentence {
     }
 
     public void calculateUpperCasedWords() {
+        char[] charArray = this.text.toCharArray();
         int countOfUpperCaseWords = 0;
         for(char i:charArray){
             if(Character.isUpperCase(i)){

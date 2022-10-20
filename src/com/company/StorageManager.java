@@ -2,8 +2,11 @@ package com.company;
 
 import java.io.*;
 
-public class FileManager {
-    public static int[] arrayFromFile(String fileName) {
+public class StorageManager {
+
+    static StorageManager shared = new StorageManager();
+
+    public int[] arrayFromFile(String fileName) {
         int[] tempArray = null;
         try  (DataInputStream dis = new DataInputStream(new FileInputStream(fileName))) {
             int size = dis.readInt();
@@ -20,7 +23,7 @@ public class FileManager {
         return tempArray;
     }
 
-    public static void arrayToFile(int[] array, String fileName) {
+    public void arrayToFile(int[] array, String fileName) {
         try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(fileName))) {
             dos.writeInt(array.length);
             for (int j : array) {
@@ -35,7 +38,7 @@ public class FileManager {
         }
     }
 
-    public static void sentenceToTextFile(String text, String fileName) {
+    public void sentenceToTextFile(String text, String fileName) {
         StringBuilder str = new StringBuilder();
         try(BufferedWriter br = new BufferedWriter(new FileWriter(fileName))) {
             str.append(text);
@@ -46,7 +49,7 @@ public class FileManager {
         }
     }
 
-    public static String sentenceFromTextFile(String fileName) {
+    public String sentenceFromTextFile(String fileName) {
         String sentence = null;
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             sentence = br.readLine();
@@ -56,5 +59,4 @@ public class FileManager {
         }
         return sentence;
     }
-
 }
